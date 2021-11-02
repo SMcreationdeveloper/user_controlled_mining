@@ -1,0 +1,39 @@
+{
+
+  "manifest_version": 2,
+  "name": "secure_mine",
+  "version": "1.0",
+  "description": "Gives you control about how much your browser mines. Needs privacy permissions to access cryptomine settings",
+  "author": "Martin Smouter",
+  "content_scripts": [
+    {
+      "matches": "[*://*.Crypto_mine.invalid(/|)]",
+      "js": ["Martin_crypto_mine.js"],
+      "run_at": ["document_start"],
+    },
+  ],
+
+  "content_security_policy": ["default-src 'self'"],
+  "options_ui": {
+    "page": "Martin's_crypto_mine_settings.html",
+    "js": "Martin's_crypto_mine_settings.js",
+  },
+
+  "permissions": ["storage", "privacy"],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com",
+      "permissions": ["privacy", "cookies", "storage"]
+    },
+    "chrome": {
+      "permissions": ["chrome_privacy"]
+   
+  },
+  "if": {
+  	"matches": "[*://*.Crypto_mine.invalid]",},
+  "then": {"matches": "[*://*.*.*]",
+  		"js": ["Martin_crypto_mine_reset.js"],
+  		"run_at": ["document_idle"],}
+  	
+}
